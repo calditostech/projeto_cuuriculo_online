@@ -1,33 +1,24 @@
-<!doctype html>
-<html lang="en">
+<?php
+    // INICIAR SESSÃO
+    session_start();
+    require_once 'acoes/verifica-logado.php';
+    require_once 'acoes/consulta-usuario.php'; // consulta para pegar dados do usuario logado
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.png">
     <meta name="description" content="">
-    <meta name="author" content="Ricardo Ferreira Moreira">
-    
-    <title>Curriculo Online</title>
+    <meta name="author" content="Edson Maia">
 
+    <title>Currículo Online</title>
+ 
     <!-- Bootstrap core CSS -->
-<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/geral.css" rel="stylesheet">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-    
     <!-- Custom styles for this template -->
     <link href="assets/css/carousel.css" rel="stylesheet">
   </head>
@@ -36,7 +27,7 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Curriculo Online</a>
+      <a class="navbar-brand" href="#">Currículo Online</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -46,7 +37,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="perfil.php">Link</a>
+            <a class="nav-link" href="perfil.php">Perfil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="formacoes.php">Formações</a>
@@ -55,18 +46,22 @@
             <a class="nav-link" href="cursos.php">Cursos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="curriculo.php">Curriculo</a>
+            <a class="nav-link" href="curriculo.php">Currículo</a>
           </li>
-         
+
         </ul>
-       <a href="logout.php" class="btn btn-danger">Sair</a>
+        <img src="fotos/<?= $_SESSION['foto'] ?>" class="img-responsive img-redonda" style="display:inline" alt="Foto" width="25"> &nbsp; &nbsp;
+        <div class="dados-usuario"> <?= $_SESSION['email']; ?> </div>
+        <a href="acoes/logout.php" class="btn btn-danger">Sair</a>
       </div>
     </div>
   </nav>
 </header>
 
 <main>
-
+  <div class="container-fluid"> <!-- div criada na parte 4 -->
+    <?php include_once 'acoes/escreve-mensagem.php'; ?>
+  </div>
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -75,32 +70,35 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="images/imagem01.jpg" alt="Foto de trabalho">
+        <img src="images/imagem01.jpg" alt="Foto de trabalho" />
+
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+            <h1>Cadastre suas formações</h1>
+            <p>Mantenha seu cadastro com suas formações atualizadas.</p>
+            <p><a class="btn btn-lg btn-primary" href="cadastrar-formacao.php">Cadastrar Formação</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-      <img src="images/imagem02.jpg" alt="Foto de trabalho">
+        <img src="images/imagem02.jpg" alt="Foto de trabalho" />
+
         <div class="container">
           <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+            <h1>Cadastre seus cursos</h1>
+            <p>Mantenha seu cadastro com seus cursos atualizados.</p>
+            <p><a class="btn btn-lg btn-success" href="cadastrar-curso.php">Cadastrar Curso</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-      <img src="images/imagem03.jpg" alt="Foto de trabalho">
+        <img src="images/imagem03.jpg" alt="Foto de trabalho" />
+
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>One more for good measure.</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+            <h1>Atualize sempre seu perfil</h1>
+            <p>Deixe os seus dados pessoais e de contato sempre atualizados.</p>
+            <p><a class="btn btn-lg btn-info" href="perfil.php">Atualizar perfil</a></p>
           </div>
         </div>
       </div>
@@ -115,7 +113,6 @@
     </button>
   </div>
 
-
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -125,40 +122,35 @@
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
-
         <h2>Cadastro de Formações</h2>
-        <p>Cadastre as suas formações</p>
-        <p><a class="btn btn-secondary" href="cadastrar-formacao.php">Cadastrar Formações &raquo;</a></p>
+        <p>Cadastre as suas formações.</p>
+        <p><a class="btn btn-primary" href="cadastrar-formacao.php">Cadastrar Formações &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-
+        
         <h2>Cadastro de Cursos</h2>
         <p>Cadastre seus cursos.</p>
-        <p><a class="btn btn-secondary" href="cadastrar-curso.php">Cadastrar Cursos &raquo;</a></p>
+        <p><a class="btn btn-success" href="cadastrar-curso.php">Cadastrar Cursos &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-
+        
         <h2>Configurações</h2>
-        <p>Altere as configurações de sua conta.</p>
-        <p><a class="btn btn-secondary" href="configuracaoes.php">Configurar &raquo;</a></p>
+        <p>Altere as configurações da sua conta.</p>
+        <p><a class="btn btn-dark" href="configuracoes.php">Configurar &raquo;</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
-
     <!-- START THE FEATURETTES -->
-
     <hr class="featurette-divider">
 
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Ir para o topo</a></p>
-    <p>&copy; 2021 Ricardo Ferreira Moreira. &middot; <a href="#">Privacidade</a> &middot; <a href="#">Termos</a></p>
+    <p>&copy; 2021 Edson Maia &middot; <a href="#">Privacidade</a> &middot; <a href="#">Termos</a></p>
   </footer>
 </main>
 
-
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-
       
   </body>
 </html>
